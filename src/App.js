@@ -36,7 +36,10 @@ import React, { Component } from 'react';
    deleteToDo(index){
      var modifiableToDos = this.state.todos.slice();
      var deletedToDos = modifiableToDos.splice(index, 1);
-     this.setState({todos: deletedToDos});
+     for(let i = 0; i < index.length; i++){
+       return deletedToDos;
+   }
+     this.setState({todos: modifiableToDos});
    }
 
    render() {
@@ -44,7 +47,7 @@ import React, { Component } from 'react';
        <div className="App">
         <ul>
           { this.state.todos.map( (todo, index) =>
-            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index)} onClick={ (index) => this.deleteToDo(index) } />
+            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index)} deleteToDo={ () => this.deleteToDo(index) } />
           )}
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
