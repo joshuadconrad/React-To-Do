@@ -33,11 +33,11 @@ import React, { Component } from 'react';
      this.setState({ todos: todos });
    }
 
-   deleteToDo(d){
+   deleteToDo(index){
      const deleteItems = this.state.todos.filter();
      const deleteItem = deleteItems[index];
-     deleteItem.isDeleted = deleteItem.isDeleted = false;
-     this.setState({todos: todos});
+     deleteItem.isDeleted = deleteItem.isDeleted ? false : true;
+     this.setState({deleteItems: deleteItem});
    }
 
    render() {
@@ -52,10 +52,8 @@ import React, { Component } from 'react';
            <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e)}/>
            <input type="submit" />
          </form>
-         <form>
-         <button value={ this.state.isCompleted} onChange={ (d) => this.deleteToDo(d) }>
-         delete
-         </button>
+         <form onSubmit={ (index) => this.deleteToDo(index) }>
+         <input type="submit" value="Delete"/>
          </form>
        </div>
      );
