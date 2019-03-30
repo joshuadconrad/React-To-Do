@@ -7,9 +7,9 @@ import React, { Component } from 'react';
      super(props);
      this.state = {
        todos: [
-         { description: 'Walk the cat', isCompleted: false },
-         { description: 'Throw the dishes away', isCompleted: true },
-         { description: 'Buy new dishes', isCompleted: false }
+         { description: 'Walk the cat', isCompleted: false, Deleted: false },
+         { description: 'Throw the dishes away', isCompleted: true, Deleted: false},
+         { description: 'Buy new dishes', isCompleted: false, Deleted: false }
        ],
        newToDoDescription: ''
      };
@@ -33,6 +33,13 @@ import React, { Component } from 'react';
      this.setState({ todos: todos });
    }
 
+   deleteToDo(d){
+     const deleteItems = this.state.todos.filter();
+     const deleteItem = deleteItems[index];
+     deleteItem.isDeleted = deleteItem.isDeleted = false;
+     this.setState({todos: todos});
+   }
+
    render() {
      return (
        <div className="App">
@@ -44,6 +51,11 @@ import React, { Component } from 'react';
         <form onSubmit={ (e) => this.handleSubmit(e) }>
            <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e)}/>
            <input type="submit" />
+         </form>
+         <form>
+         <button value={ this.state.isCompleted} onChange={ (d) => this.deleteToDo(d) }>
+         delete
+         </button>
          </form>
        </div>
      );
