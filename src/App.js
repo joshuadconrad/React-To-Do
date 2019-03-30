@@ -7,11 +7,11 @@ import React, { Component } from 'react';
      super(props);
      this.state = {
        todos: [
-         { description: 'Walk the cat', isCompleted: false, Deleted: false },
-         { description: 'Throw the dishes away', isCompleted: true, Deleted: false},
-         { description: 'Buy new dishes', isCompleted: false, Deleted: false }
+         { description: 'Walk the cat', isCompleted: false },
+         { description: 'Throw the dishes away', isCompleted: true },
+         { description: 'Buy new dishes', isCompleted: false }
        ],
-       newToDoDescription: ''
+       newToDoDescription: '',
      };
    }
 
@@ -34,26 +34,22 @@ import React, { Component } from 'react';
    }
 
    deleteToDo(index){
-     const deleteItems = this.state.todos.filter();
-     const deleteItem = deleteItems[index];
-     deleteItem.isDeleted = deleteItem.isDeleted ? false : true;
-     this.setState({deleteItems: deleteItem});
+     var modifiableToDos = this.state.todos.slice();
+     var deletedToDos = modifiableToDos.splice(index, 1);
+     this.setState({todos: deletedToDos});
    }
 
    render() {
      return (
        <div className="App">
         <ul>
-          { this.state.todos.map( (todo,index) =>
-            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+          { this.state.todos.map( (todo, index) =>
+            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index)} onClick={ (index) => this.deleteToDo(index) } />
           )}
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
            <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e)}/>
            <input type="submit" />
-         </form>
-         <form onSubmit={ (index) => this.deleteToDo(index) }>
-         <input type="submit" value="Delete"/>
          </form>
        </div>
      );
